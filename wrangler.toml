@@ -1,0 +1,7 @@
+name = "my-ip"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+workers_dev = true
