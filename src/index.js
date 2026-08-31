@@ -105,6 +105,7 @@ function renderHTML(data) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
 <meta name="description" content="通过 Cloudflare 全球边缘网络检测你的公网 IP 与地理位置">
 <title>My IP · 公网 IP 检测</title>
 <style>
@@ -517,8 +518,11 @@ export default {
     if (path === "/robots.txt") {
       return textRes("User-agent: *\nAllow: /\n");
     }
-    if (path === "/favicon.ico") {
-      return new Response(null, { status: 204 });
+    if (path === "/favicon.ico" || path === "/favicon.svg") {
+      return new Response(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🌍</text></svg>',
+        { headers: { "Content-Type": "image/svg+xml; charset=utf-8", "Cache-Control": "public, max-age=86400" } }
+      );
     }
 
     return new Response("404 Not Found\n", {
