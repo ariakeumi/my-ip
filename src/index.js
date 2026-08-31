@@ -97,9 +97,8 @@ function textRes(text, contentType) {
   });
 }
 
-function renderHTML(data, origin) {
+function renderHTML(data) {
   const safeData = JSON.stringify(data).replace(/</g, "\\u003c");
-  const safeOrigin = JSON.stringify(origin || "");
 
   return `<!DOCTYPE html>
 <html lang="zh-CN">
@@ -110,8 +109,8 @@ function renderHTML(data, origin) {
 <title>My IP · 公网 IP 检测</title>
 <style>
 :root{
-  --bg:#05060f; --ink:#e8ecff; --muted:#8b93c7; --line:rgba(255,255,255,.09);
-  --glass:rgba(255,255,255,.045); --c1:#22d3ee; --c2:#6366f1; --c3:#a855f7;
+  --bg:#f4f6ff; --ink:#1b2240; --muted:#5d6590; --line:rgba(30,41,90,.10);
+  --glass:rgba(255,255,255,.78); --c1:#0ea5e9; --c2:#6366f1; --c3:#a855f7;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -119,25 +118,25 @@ body{
   min-height:100vh; color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Segoe UI",sans-serif;
   background:
-    radial-gradient(1100px 600px at 15% -10%, rgba(99,102,241,.28), transparent 60%),
-    radial-gradient(900px 560px at 110% 8%, rgba(34,211,238,.22), transparent 55%),
-    radial-gradient(800px 700px at 50% 115%, rgba(168,85,247,.18), transparent 60%),
+    radial-gradient(1100px 600px at 15% -10%, rgba(99,102,241,.14), transparent 60%),
+    radial-gradient(900px 560px at 110% 8%, rgba(14,165,233,.12), transparent 55%),
+    radial-gradient(800px 700px at 50% 115%, rgba(168,85,247,.10), transparent 60%),
     var(--bg);
   overflow-x:hidden;
 }
 .grid-bg{
   position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5;
   background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    linear-gradient(rgba(30,41,90,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30,41,90,.045) 1px, transparent 1px);
   background-size:44px 44px;
   -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 30%, #000 40%, transparent 100%);
           mask-image:radial-gradient(ellipse 90% 70% at 50% 30%, #000 40%, transparent 100%);
 }
-.orb{position:fixed;border-radius:50%;filter:blur(70px);opacity:.5;z-index:0;pointer-events:none;animation:drift 18s ease-in-out infinite alternate}
-.orb.a{width:340px;height:340px;top:-80px;left:-60px;background:radial-gradient(circle,#6366f1,transparent 70%)}
-.orb.b{width:300px;height:300px;top:20%;right:-80px;background:radial-gradient(circle,#22d3ee,transparent 70%);animation-delay:-6s}
-.orb.c{width:360px;height:360px;bottom:-120px;left:30%;background:radial-gradient(circle,#a855f7,transparent 70%);animation-delay:-12s}
+.orb{position:fixed;border-radius:50%;filter:blur(70px);opacity:.35;z-index:0;pointer-events:none;animation:drift 18s ease-in-out infinite alternate}
+.orb.a{width:340px;height:340px;top:-80px;left:-60px;background:radial-gradient(circle,rgba(99,102,241,.55),transparent 70%)}
+.orb.b{width:300px;height:300px;top:20%;right:-80px;background:radial-gradient(circle,rgba(14,165,233,.5),transparent 70%);animation-delay:-6s}
+.orb.c{width:360px;height:360px;bottom:-120px;left:30%;background:radial-gradient(circle,rgba(168,85,247,.5),transparent 70%);animation-delay:-12s}
 @keyframes drift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(40px,-30px,0) scale(1.12)}}
 
 .wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:56px 20px 72px}
@@ -152,8 +151,8 @@ body{
 .brand h1{font-size:19px;font-weight:800;letter-spacing:.5px}
 .brand p{font-size:12px;color:var(--muted);margin-top:2px}
 .pill{
-  display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#9fe8ff;
-  background:rgba(34,211,238,.10);border:1px solid rgba(34,211,238,.28);
+  display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#0369a1;
+  background:rgba(14,165,233,.10);border:1px solid rgba(14,165,233,.30);
   padding:6px 12px;border-radius:999px;white-space:nowrap;
 }
 .pill .dot{width:7px;height:7px;border-radius:50%;background:#22d3ee;box-shadow:0 0 10px #22d3ee;animation:blink 1.6s ease-in-out infinite}
@@ -162,7 +161,7 @@ body{
 .card{
   background:var(--glass);border:1px solid var(--line);border-radius:22px;
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  box-shadow:0 18px 50px rgba(0,0,0,.35);padding:26px;
+  box-shadow:0 18px 50px rgba(30,41,90,.10);padding:26px;
   animation:rise .7s cubic-bezier(.22,1,.36,1) both;
 }
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
@@ -170,18 +169,18 @@ body{
 .ip-card{text-align:center;padding:38px 26px 32px;position:relative;overflow:hidden}
 .ip-card::before{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(500px 200px at 50% 0%, rgba(99,102,241,.16), transparent 70%);
+  background:radial-gradient(500px 200px at 50% 0%, rgba(99,102,241,.12), transparent 70%);
 }
 .ip-label{font-size:13px;color:var(--muted);letter-spacing:4px;text-transform:uppercase}
 .ip-flag{font-size:26px;margin-top:14px;line-height:1}
 .ip-value{
   font-size:clamp(30px,7vw,58px);font-weight:800;letter-spacing:2px;margin-top:8px;
-  background:linear-gradient(120deg,#7dd3fc,#a5b4fc 45%,#f0abfc);
+  background:linear-gradient(120deg,#0284c7,#4f46e5 45%,#9333ea);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   word-break:break-all;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
 }
-.ip-location{font-size:15px;color:#cdd3ff;margin-top:10px}
-.ip-location .sep{color:#4b5378;margin:0 6px}
+.ip-location{font-size:15px;color:#3a4470;margin-top:10px}
+.ip-location .sep{color:#a3aacd;margin:0 6px}
 .actions{display:flex;gap:10px;justify-content:center;margin-top:22px;flex-wrap:wrap}
 .btn{
   display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:none;
@@ -189,20 +188,20 @@ body{
   transition:transform .15s ease,box-shadow .2s ease,filter .2s ease;
 }
 .btn.primary{background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 8px 24px rgba(34,211,238,.28)}
-.btn.ghost{background:rgba(255,255,255,.06);border:1px solid var(--line);color:#dfe4ff}
+.btn.ghost{background:rgba(30,41,90,.05);border:1px solid var(--line);color:#3a4470}
 .btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
 .btn:active{transform:translateY(0)}
 .btn svg{width:16px;height:16px}
 
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
 .item{
-  background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;
+  background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:14px;
   padding:14px 16px;animation:rise .6s cubic-bezier(.22,1,.36,1) both;
 }
 .item .k{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
 .item .k .ico{font-size:13px}
-.item .v{font-size:14.5px;margin-top:7px;font-weight:600;color:#eef1ff;word-break:break-all;line-height:1.45}
-.item .sub{font-size:11.5px;color:#6d76a8;margin-top:3px}
+.item .v{font-size:14.5px;margin-top:7px;font-weight:600;color:#1b2240;word-break:break-all;line-height:1.45}
+.item .sub{font-size:11.5px;color:#8a93bd;margin-top:3px}
 
 .loc-card{display:flex;align-items:center;gap:24px;margin-top:14px;padding:22px 26px}
 .globe-wrap{flex:none;position:relative;width:190px;height:190px}
@@ -212,35 +211,13 @@ body{
 .loc-title .flag{font-size:22px}
 .loc-desc{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.6}
 .loc-stats{display:flex;gap:18px;margin-top:16px;flex-wrap:wrap}
-.loc-stat .n{font-size:19px;font-weight:800;background:linear-gradient(120deg,#7dd3fc,#f0abfc);-webkit-background-clip:text;background-clip:text;color:transparent;font-family:ui-monospace,Menlo,monospace}
+.loc-stat .n{font-size:19px;font-weight:800;background:linear-gradient(120deg,#0284c7,#9333ea);-webkit-background-clip:text;background-clip:text;color:transparent;font-family:ui-monospace,Menlo,monospace}
 .loc-stat .t{font-size:11.5px;color:var(--muted);margin-top:2px}
 
-.curl-card{margin-top:14px;padding:20px 26px}
-.curl-card h3{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
-.tab{
-  font-size:12.5px;cursor:pointer;padding:6px 14px;border-radius:9px;color:var(--muted);
-  border:1px solid var(--line);background:rgba(255,255,255,.03);transition:all .15s ease;
-}
-.tab.active{color:#fff;background:linear-gradient(135deg,rgba(34,211,238,.22),rgba(99,102,241,.22));border-color:rgba(34,211,238,.4)}
-.curl-box{
-  position:relative;display:flex;align-items:center;gap:12px;
-  background:#070a1c;border:1px solid var(--line);border-radius:12px;padding:13px 16px;
-}
-.curl-box code{
-  flex:1;font-size:13px;color:#9be8ff;overflow-x:auto;white-space:nowrap;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  scrollbar-width:thin;
-}
-.copy-mini{
-  flex:none;cursor:pointer;border:none;border-radius:8px;padding:7px 11px;font-size:12px;
-  background:rgba(255,255,255,.07);color:#cdd3ff;transition:all .15s ease;
-}
-.copy-mini:hover{background:rgba(34,211,238,.2);color:#fff}
 
-.foot{text-align:center;margin-top:26px;font-size:12px;color:#6d76a8;line-height:1.8}
+.foot{text-align:center;margin-top:26px;font-size:12px;color:#8a93bd;line-height:1.8}
 .foot .tags{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:6px}
-.tag{font-size:11px;color:#7c85b8;border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.tag{font-size:11px;color:#5d6590;border:1px solid var(--line);border-radius:999px;padding:3px 10px}
 
 @media(max-width:680px){
   .wrap{padding:28px 14px 56px}
@@ -254,7 +231,7 @@ body{
 </style>
 </head>
 <body>
-<script>window.__DATA__ = ${safeData};window.__ORIGIN__ = ${safeOrigin};</script>
+<script>window.__DATA__ = ${safeData};</script>
 <div class="grid-bg"></div>
 <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
 
@@ -302,22 +279,6 @@ body{
     <div class="grid" id="infoGrid"></div>
   </div>
 
-  <div class="card curl-card" style="animation-delay:.3s">
-    <h3>
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-      curl 命令行
-    </h3>
-    <div class="tabs" id="tabs">
-      <div class="tab active" data-path="/ip">curl /ip</div>
-      <div class="tab" data-path="/json">curl /json</div>
-      <div class="tab" data-path="/">curl / (HTML)</div>
-    </div>
-    <div class="curl-box">
-      <code id="curlCmd">curl {{ORIGIN}}/ip</code>
-      <button class="copy-mini" id="copyCurl">复制</button>
-    </div>
-  </div>
-
   <div class="foot">
     <div>数据基于 Cloudflare <code style="font-size:inherit">CF-Connecting-IP</code> 与 <code style="font-size:inherit">request.cf</code> 边缘信息</div>
     <div class="tags"><span class="tag" id="tagTime"></span><span class="tag" id="tagColo"></span></div>
@@ -328,7 +289,6 @@ body{
 (function(){
   var D = window.__DATA__;
   if (!D) { document.title = "My IP · 加载失败"; return; }
-  var O = window.__ORIGIN__ || location.origin;
 
   document.getElementById("ipDisplay").textContent = D.ip;
   var flag = document.getElementById("flagEmoji");
@@ -414,7 +374,7 @@ body{
 
     // outer glow
     var g = ctx.createRadialGradient(cx, cy, R-10, cx, cy, R+18);
-    g.addColorStop(0, "rgba(99,102,241,.1)");
+    g.addColorStop(0, "rgba(99,102,241,.15)");
     g.addColorStop(1, "rgba(99,102,241,0)");
     ctx.fillStyle = g;
     ctx.beginPath();
@@ -427,18 +387,18 @@ body{
     ctx.closePath();
 
     var grad = ctx.createRadialGradient(cx-30, cy-30, 10, cx, cy, R);
-    grad.addColorStop(0, "rgba(30, 41, 82, .95)");
-    grad.addColorStop(0.6, "rgba(15, 23, 62, .98)");
-    grad.addColorStop(1, "rgba(5, 8, 25, .98)");
+    grad.addColorStop(0, "rgba(224, 231, 255, .95)");
+    grad.addColorStop(0.6, "rgba(199, 210, 254, .97)");
+    grad.addColorStop(1, "rgba(165, 180, 252, .98)");
     ctx.fillStyle = grad;
     ctx.fill();
 
-    ctx.strokeStyle = "rgba(99,102,241,.25)";
+    ctx.strokeStyle = "rgba(99,102,241,.35)";
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
     // grid lines
-    ctx.strokeStyle = "rgba(99,102,241,.12)";
+    ctx.strokeStyle = "rgba(99,102,241,.2)";
     ctx.lineWidth = .8;
     for (var i = 0; i < 8; i++) {
       var angle = (i / 8) * Math.PI * 2;
@@ -454,14 +414,14 @@ body{
     }
 
     // equator highlight
-    ctx.strokeStyle = "rgba(34,211,238,.08)";
+    ctx.strokeStyle = "rgba(14,165,233,.15)";
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.arc(cx, cy, R, 0, Math.PI * 2);
     ctx.stroke();
 
     // prime meridian
-    ctx.strokeStyle = "rgba(34,211,238,.06)";
+    ctx.strokeStyle = "rgba(14,165,233,.12)";
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(cx, cy - R);
@@ -481,19 +441,19 @@ body{
       // pulse ring
       ctx.beginPath();
       ctx.arc(mx, my, 14, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(34,211,238,.15)";
+      ctx.fillStyle = "rgba(14,165,233,.2)";
       ctx.fill();
       ctx.beginPath();
       ctx.arc(mx, my, 10, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(34,211,238,.3)";
+      ctx.fillStyle = "rgba(14,165,233,.4)";
       ctx.fill();
 
       // dot
       ctx.beginPath();
       ctx.arc(mx, my, 5, 0, Math.PI * 2);
-      ctx.fillStyle = "#22d3ee";
+      ctx.fillStyle = "#0ea5e9";
       ctx.fill();
-      ctx.shadowColor = "#22d3ee";
+      ctx.shadowColor = "#0ea5e9";
       ctx.shadowBlur = 14;
       ctx.beginPath();
       ctx.arc(mx, my, 3.5, 0, Math.PI * 2);
@@ -528,37 +488,6 @@ body{
     location.reload();
   });
 
-  // tabs
-  var tabs = document.querySelectorAll(".tab");
-  var curlCode = document.getElementById("curlCmd");
-  var copyCurl = document.getElementById("copyCurl");
-  var paths = ["/ip", "/json", "/"];
-  var curIdx = 0;
-
-  for (var i = 0; i < tabs.length; i++) {
-    (function(idx) {
-      tabs[idx].addEventListener("click", function() {
-        for (var j = 0; j < tabs.length; j++) tabs[j].classList.remove("active");
-        tabs[idx].classList.add("active");
-        curIdx = idx;
-        curlCode.textContent = "curl " + (paths[idx] === "/" ? "-sS " : "") + O + paths[idx];
-      });
-    })(i);
-  }
-
-  copyCurl.addEventListener("click", function() {
-    var t = copyCurl;
-    var text = curlCode.textContent;
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function() {
-        t.textContent = "已复制";
-        setTimeout(function() { t.textContent = "复制"; }, 1500);
-      });
-    }
-  });
-
-  // init curl display
-  curlCode.textContent = "curl " + O + "/ip";
 })();
 </script>
 </body>
@@ -570,7 +499,6 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
     const data = collect(request);
-    const origin = url.origin;
 
     if (path === "/ip" || path === "/ip/") {
       return textRes(data.ip + "\n");
@@ -579,7 +507,7 @@ export default {
       return jsonRes(data, true);
     }
     if (path === "/" ) {
-      return new Response(renderHTML(data, origin), {
+      return new Response(renderHTML(data), {
         headers: {
           "Content-Type": "text/html; charset=utf-8",
           "Cache-Control": "no-store, max-age=0",
