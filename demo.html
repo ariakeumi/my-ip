@@ -129,7 +129,7 @@ body{
 </style>
 </head>
 <body>
-<script>window.__DATA__ = {"ip":"203.0.113.7","country":"JP","countryName":"日本","continent":"","city":"Tokyo","region":"Tokyo","regionCode":"","postalCode":"","metroCode":"","latitude":35.6895,"longitude":139.6917,"timezone":"Asia/Tokyo","asn":"AS13335","asOrganization":"Cloudflare, Inc.","colo":"NRT","httpProtocol":"HTTP/2","tlsVersion":"TLSv1.3","tlsCipher":"","clientTcpRtt":"","isEUCountry":"","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36","timestamp":"2026-08-31T16:48:20.080Z"};</script>
+<script>window.__DATA__ = {"ip":"203.0.113.7","country":"JP","countryName":"日本","continent":"","city":"Tokyo","region":"Tokyo","regionCode":"","postalCode":"","metroCode":"","latitude":35.6895,"longitude":139.6917,"timezone":"Asia/Tokyo","asn":"AS13335","asOrganization":"Cloudflare, Inc.","colo":"NRT","httpProtocol":"HTTP/2","tlsVersion":"TLSv1.3","tlsCipher":"","clientTcpRtt":"","isEUCountry":"","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36","timestamp":"2026-08-31T17:20:55.120Z"};</script>
 <div class="grid-bg"></div>
 <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
 
@@ -199,7 +199,7 @@ body{
   if (D.region) locParts.push(D.region);
   if (D.countryName) locParts.push(D.countryName);
   else if (D.country) locParts.push(D.country);
-  document.getElementById("ipLocation").innerHTML = (locParts.length ? locParts.join(" · ") : "未知位置") + " <span class="sep">·</span> " + D.timezone;
+  document.getElementById("ipLocation").innerHTML = (locParts.length ? locParts.join(" · ") : "未知位置") + " <span class='sep'>·</span> " + D.timezone;
 
   document.getElementById("locTitle").textContent = D.city || D.region || D.countryName || "未知位置";
   var desc = "地理位置由 Cloudflare 边缘网络基于 " + D.ip + " 推断";
@@ -214,7 +214,7 @@ body{
   var sHtml = "";
   for (var i = 0; i < stats.length; i++) {
     if (stats[i].n && stats[i].n !== "——") {
-      sHtml += "<div class="loc-stat"><div class="n">" + esc(stats[i].n) + "</div><div class="t">" + esc(stats[i].t) + "</div></div>";
+      sHtml += "<div class='loc-stat'><div class='n'>" + esc(stats[i].n) + "</div><div class='t'>" + esc(stats[i].t) + "</div></div>";
     }
   }
   document.getElementById("locStats").innerHTML = sHtml;
@@ -243,10 +243,10 @@ body{
   for (var i = 0; i < infoFields.length; i++) {
     var f = infoFields[i];
     var delay = (i * 0.04).toFixed(2);
-    var sub = f.sub ? "<div class="sub">" + esc(f.sub) + "</div>" : "";
-    gridHtml += "<div class="item" style="animation-delay:" + delay + "s">";
-    gridHtml += "<div class="k"><span class="ico">" + f.ico + "</span>" + esc(f.k) + "</div>";
-    gridHtml += "<div class="v">" + esc(f.v) + "</div>" + sub + "</div>";
+    var sub = f.sub ? "<div class='sub'>" + esc(f.sub) + "</div>" : "";
+    gridHtml += "<div class='item' style='animation-delay:" + delay + "s'>";
+    gridHtml += "<div class='k'><span class='ico'>" + f.ico + "</span>" + esc(f.k) + "</div>";
+    gridHtml += "<div class='v'>" + esc(f.v) + "</div>" + sub + "</div>";
   }
   document.getElementById("infoGrid").innerHTML = gridHtml;
 

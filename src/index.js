@@ -346,7 +346,7 @@ body{
     var f = infoFields[i];
     var delay = (i * 0.04).toFixed(2);
     var sub = f.sub ? "<div class='sub'>" + esc(f.sub) + "</div>" : "";
-    gridHtml += "<div class='item' style='animation-delay:" + delay + "s\">";
+    gridHtml += "<div class='item' style='animation-delay:" + delay + "s'>";
     gridHtml += "<div class='k'><span class='ico'>" + f.ico + "</span>" + esc(f.k) + "</div>";
     gridHtml += "<div class='v'>" + esc(f.v) + "</div>" + sub + "</div>";
   }
