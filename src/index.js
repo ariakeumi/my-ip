@@ -1,6 +1,7 @@
 // my-ip — Cloudflare Worker IP 检测工具
-//   curl https://<name>.<subdomain>.workers.dev/ip     -> 纯文本 IP
-//   curl https://<name>.<subdomain>.workers.dev/json   -> JSON 详情
+//   curl https://<name>.<subdomain>.workers.dev         -> 纯文本 IP
+//   curl https://<name>.<subdomain>.workers.dev/ip      -> 纯文本 IP
+//   curl https://<name>.<subdomain>.workers.dev/json    -> JSON 详情
 //   浏览器打开根路径 /                                  -> 精美 WEB UI
 // 数据来源: Cloudflare 请求头 CF-Connecting-IP 与 request.cf(地理位置/ASN 等)
 
@@ -495,25 +496,33 @@ body{
 </html>`;
 }
 
+// 浏览器 Accept 头包含 text/html; curl/wget 等命令行客户端发 */* 或不带该头
+function isBrowser(request) {
+  return (request.headers.get("Accept") || "").includes("text/html");
+}
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
     const path = url.pathname;
     const data = collect(request);
 
-    if (path === "/ip" || path === "/ip/") {
-      return textRes(data.ip + "\n");
-    }
-    if (path === "/json" || path === "/json/") {
-      return jsonRes(data, true);
-    }
-    if (path === "/" ) {
+    if (path === "/") {
+      if (!isBrowser(request)) {
+        return textRes(data.ip + "\n");
+      }
       return new Response(renderHTML(data), {
         headers: {
           "Content-Type": "text/html; charset=utf-8",
           "Cache-Control": "no-store, max-age=0",
         },
       });
+    }
+    if (path === "/ip" || path === "/ip/") {
+      return textRes(data.ip + "\n");
+    }
+    if (path === "/json" || path === "/json/") {
+      return jsonRes(data, true);
     }
     if (path === "/robots.txt") {
       return textRes("User-agent: *\nAllow: /\n");

@@ -8,15 +8,16 @@
 
 | 路由 | 说明 |
 | --- | --- |
-| `GET /` | 精美 WEB UI，展示 IP 与地理位置 |
+| `GET /` | curl 等命令行客户端返回纯文本 IP；浏览器打开呈现精美 WEB UI（按 `Accept` 头区分） |
 | `GET /ip` | 纯文本 IP（适合 curl / 脚本） |
 | `GET /json` | JSON 全量字段（含地理位置 / ASN / 时区等） |
 | `GET /robots.txt` | 允许抓取 |
 | 其他 | `404` |
 
 ```bash
-curl https://<你的worker域名>.workers.dev/ip        # -> 203.0.113.7
-curl https://<你的worker域名>.workers.dev/json      # -> 完整 JSON
+curl https://<你的worker域名>.workers.dev            # -> 203.0.113.7
+curl https://<你的worker域名>.workers.dev/ip         # -> 203.0.113.7
+curl https://<你的worker域名>.workers.dev/json       # -> 完整 JSON
 ```
 
 ## 项目结构
