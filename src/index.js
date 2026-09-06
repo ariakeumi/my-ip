@@ -205,7 +205,9 @@ body{
 .item .v{font-size:14.5px;margin-top:7px;font-weight:600;color:#1b2240;word-break:break-all;line-height:1.45}
 .item .sub{font-size:11.5px;color:#8a93bd;margin-top:3px}
 
-.loc-card{display:flex;align-items:center;gap:24px;margin-top:14px;padding:22px 26px}
+.card + .card{margin-top:14px}
+
+.loc-card{display:flex;align-items:center;gap:24px;padding:22px 26px}
 .globe-wrap{flex:none;position:relative;width:190px;height:190px}
 .globe-wrap canvas{width:100%;height:100%;display:block}
 .loc-side{flex:1;min-width:0}
@@ -280,7 +282,6 @@ body{
   <div class="card" style="animation-delay:.2s">
     <div class="grid" id="infoGrid"></div>
   </div>
-
   <div class="foot">
     <div>数据基于 Cloudflare <code style="font-size:inherit">CF-Connecting-IP</code> 与 <code style="font-size:inherit">request.cf</code> 边缘信息</div>
     <div class="tags"><span class="tag" id="tagTime"></span><span class="tag" id="tagColo"></span></div>
